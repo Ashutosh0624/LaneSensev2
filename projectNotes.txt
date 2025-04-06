@@ -1,0 +1,22 @@
+QSettings class in Qt: This class is used to  read/write .conf files in linux/embedded systems 
+What does QSettings class does?
+
+    Stores the key-value pairs in Configuration files Configuration files.
+    Is platform independent:
+    1) Linux/macOS: .conf files (INI style)
+    2) Windows: Registry
+    
+   Main functions :  QSettings *settings = new QSettings(filepath)
+                     settings->begingroup()
+                     read/write operations 
+                     settings->endgroup()
+                     
+                     
+Note: ConfigParser class has been made as Singleton class because it will be shared amongst many modules and the same object has to be shared.
+
+So, I have implemented a singleton-based COnfigparser using QSettings. This ensured centralized runtime configuration without code duplication. The singleton instance was accessible from anywhere, suppoorting a clean and testable architecture
+
+
+ 
+
+       
