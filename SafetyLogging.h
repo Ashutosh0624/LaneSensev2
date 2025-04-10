@@ -1,0 +1,4 @@
+#ifndef SAFETYLOGGING_H
+#define SAFETYLOGGING_H
+
+#endif // SAFETYLOGGING_H

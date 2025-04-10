@@ -1,0 +1,82 @@
+{
+    "classes": [
+        {
+            "className": "errorManager",
+            "lineNumber": 6,
+            "object": true,
+            "qualifiedClassName": "errorManager",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "safeStateActivated",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "recoverySuccessful",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "reqId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "handleSensorFault",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "reqId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 3,
+                    "name": "handleCriticalSystemError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "module",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "reqId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "reportRecovery",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "errormanager.h",
+    "outputRevision": 68
+}

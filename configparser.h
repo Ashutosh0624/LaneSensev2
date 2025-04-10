@@ -1,5 +1,5 @@
-#ifndef CONFIGPARSER_H
-#define CONFIGPARSER_H
+#pragma once
+
 #include <QString>
 #include <QVariant>
 #include <QSettings>
@@ -21,4 +21,3 @@ private:
     ConfigParser& operator=(const ConfigParser&) = delete;
 };
 
-#endif // CONFIGPARSER_H

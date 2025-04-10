@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_appADAS_inustrial_app_FILE /home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/appADAS_inustrial_app)
+set(__QT_DEPLOY_TARGET_appADAS_inustrial_app_TYPE EXECUTABLE)

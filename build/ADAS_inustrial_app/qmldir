@@ -1,0 +1,4 @@
+module ADAS_inustrial_app
+typeinfo appADAS_inustrial_app.qmltypes
+prefer :/ADAS_inustrial_app/
+

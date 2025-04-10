@@ -1,0 +1,5 @@
+--resource
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/.qt/rcc/qmake_ADAS_inustrial_app.qrc
+--resource
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/.qt/rcc/appADAS_inustrial_app_raw_qml_0.qrc
+/ADAS_inustrial_app/main.qml

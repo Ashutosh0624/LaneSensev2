@@ -1,0 +1,14 @@
+-rootPath
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app
+-cmake-output
+-output-file
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/.qt/qml_imports/appADAS_inustrial_app_conf.cmake
+-importPath
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/ADAS_inustrial_app
+-importPath
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build
+-importPath
+/home/ashutosh/Qt/6.8.2/gcc_64/qml
+-qrcFiles
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/.qt/rcc/qmake_ADAS_inustrial_app.qrc
+/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/.qt/rcc/appADAS_inustrial_app_raw_qml_0.qrc

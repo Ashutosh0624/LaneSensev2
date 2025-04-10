@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/ADAS_inustrial_app">
+    <file alias="qmldir">/home/ashutosh/Desktop/QT-Qml/Lane_ADAS/ADAS_inustrial_app/build/ADAS_inustrial_app/qmldir</file>
+  </qresource>
+</RCC>
+

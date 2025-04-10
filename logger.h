@@ -1,27 +1,36 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
+
 #include <QString>
 #include <QFile>   // to open/write log file
 #include <QTextStream> // text-based I/O
 #include <QDateTime>   // for timestamp , in log timestamp may be required
+#include <QDebug>
+#include <QMutex>
+#include "configparser.h"
 
 class logger
 {
 public:
     // function to get the instance of logger
+    enum Level{DEBUG, INFO, WARNING, ERROR};
+
     static logger* getInstance();
 
     //logger functions
-    void logDebug(const QString &msg);   // will run only when debug mode is enabled
-    void logInfo(const QString &msg);    // for general logs
-    void logError(const QString &msg);   // to highlight the error
+    void log(const QString& msg,
+             Level level,
+             const QString& tag,
+             const QString& reqId = " ");
 
 private:
     logger();  // private constructor
+    static QMutex mutex;
     static logger* instance;
     QFile logFile;
     QTextStream stream;   // to write line in file
     bool debugEnabled;    //  will be decide after reading config
+    QString getTimeStamp();
+    QString logLevelToString(Level level);
 
     // prevent copy
     logger(const logger&) = delete;
@@ -40,4 +49,4 @@ private:
       //
 };
 
-#endif // LOGGER_H
+

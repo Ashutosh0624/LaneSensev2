@@ -16,6 +16,273 @@ Note: ConfigParser class has been made as Singleton class because it will be sha
 
 So, I have implemented a singleton-based COnfigparser using QSettings. This ensured centralized runtime configuration without code duplication. The singleton instance was accessible from anywhere, suppoorting a clean and testable architecture
 
+Logger class interpretation: 
+**Logger Class: In-Depth Interview Question Answers & Explanations**
+
+---
+
+### 1. **Explain the design of your logging system.**
+
+My logging system follows the Singleton design pattern to ensure that only one instance of the logger exists throughout the application lifecycle. It uses a private constructor and a static `getInstance()` method for global access.
+
+Each log entry contains a timestamp, log level (DEBUG, INFO, WARNING, ERROR), a tag (e.g., SENSOR, SAFETY), and an optional Functional Safety Requirement ID (e.g., FS-REQ-4.3.1) for traceability.
+
+Logs are written to a file and optionally displayed on the console using `qDebug()`. The file path and debug log visibility are configurable at runtime through a singleton `ConfigParser` class.
+
+Thread safety is handled using `QMutex` and `QMutexLocker` in the `log()` function. This ensures that concurrent log calls from multiple threads do not result in race conditions or corrupted output.
+
+---
+
+### 2. **Why did you choose Singleton pattern?**
+
+The Singleton pattern is chosen because logging is a cross-cutting concern that needs to be accessed consistently throughout the system. A single point of logging:
+- Avoids conflicts from multiple instances writing simultaneously.
+- Centralizes configuration (e.g., file path, log level).
+- Reduces memory usage and initialization overhead.
+
+The design also enforces immutability by deleting the copy constructor and assignment operator, ensuring no accidental copies.
+
+---
+
+### 3. **How is your logger suitable for embedded systems?**
+
+- **Lightweight**: Uses `QTextStream` and `QFile`, suitable for embedded Linux environments.
+- **Efficient**: Conditional debug logging prevents unnecessary I/O.
+- **Configurable**: Supports runtime parameters via config file, e.g., logging enable flags.
+- **Fail-safe**: If the log file fails to open, a warning is shown using `qWarning()`.
+- **Traceable**: Safety-critical logs include FS-REQ ID.
+
+This structure aligns with embedded system constraints (limited memory, CPU cycles, and disk I/O).
+
+---
+
+### 4. **How would you extend this logger for multithreading?**
+
+To make it thread-safe:
+- Use a `QMutex` and `QMutexLocker` in the `log()` function to serialize access to the stream.
+
+```cpp
+QMutex mutex;
+QMutexLocker locker(&mutex);  // Inside log()
+```
+This ensures that simultaneous threads do not corrupt the log file.
+
+---
+
+### 5. **How is this logger ISO 26262 compliant?**
+
+- **Traceability**: Each log message can contain a Functional Safety Requirement ID.
+- **Severity Levels**: Messages are categorized by severity.
+- **Recovery & Fault Isolation**: Supports logs for recovery actions (`LOG_RECOVERY`) and fatal errors (`LOG_FATAL_ERROR`).
+- **Audit Trail**: Logs are timestamped and stored persistently for future auditing.
+
+ISO 26262 emphasizes safety goals traceability, diagnosability, and maintainability, which this logger supports.
+
+---
+
+### 6. **What is the importance of FS-REQ IDs?**
+
+Functional Safety Requirement IDs (e.g., FS-REQ-3.2.4) provide:
+- **Traceability**: You can map runtime behavior back to safety requirements.
+- **Audit Readiness**: Helpful during certification and functional safety audits.
+- **Debugging Ease**: Engineers can pinpoint which requirement was violated or triggered.
+
+---
+
+### 7. **How would you enable/disable logs dynamically?**
+
+Through `ConfigParser` singleton:
+- Reads `enable_debug` flag from config file.
+- In `logger::log()` function:
+
+```cpp
+if (!debugEnabled && level == DEBUG) return;
+```
+This ensures DEBUG logs can be toggled without recompiling the code.
+
+---
+
+### 8. **What happens if the logging file is not accessible at runtime?**
+
+If `logFile.open()` fails, a warning is shown using `qWarning()`, and logging to file is skipped.
+This ensures:
+- Application continues to run.
+- Developers get console output indicating the issue.
+
+---
+
+### 9. **Can your logger support different log levels per module?**
+
+Yes, by modifying the config file to contain log level settings per module:
+```ini
+[LANE_MODULE]
+log_level = INFO
+[CAN_MODULE]
+log_level = DEBUG
+```
+Then extend `ConfigParser` and `logger::log()` to conditionally allow logging based on the module’s log level.
+
+---
+
+### 10. **How would you implement log rotation?**
+
+Add logic in the `log()` method:
+```cpp
+if (logFile.size() > MAX_LOG_SIZE) {
+    logFile.rename("log.bak");
+    logFile.open(QIODevice::WriteOnly | QIODevice::Text);
+}
+```
+This prevents the log file from growing indefinitely.
+
+---
+
+### 11. **How can logs be sent remotely over the network (Syslog integration)?**
+
+- Use `QUdpSocket` or `QTcpSocket` to send log strings to a remote syslog server.
+- Or use Unix domain socket and follow the syslog protocol.
+
+---
+
+### 12. **How to avoid blocking I/O in high-frequency logging systems?**
+
+- Offload logging to a background thread using producer-consumer model.
+- Use a circular queue to store log entries.
+- Background thread writes them to file/network.
+
+---
+
+### 13. **Why is the constructor private in Singleton?**
+
+To prevent users from creating multiple instances of the logger, enforcing a single entry point (`getInstance()`).
+
+---
+
+### 14. **Why did you delete the copy constructor and assignment operator?**
+
+To prevent cloning of the singleton object:
+```cpp
+logger(const logger&) = delete;
+logger& operator=(const logger&) = delete;
+```
+This is necessary to enforce the singleton contract and avoid accidental duplication.
+
+---
+
+### 15. **What are tags in logging and why use them?**
+
+Tags like `SENSOR`, `RECOVERY`, `SYSTEM` help categorize logs by subsystem/module.
+This improves:
+- Log filtering
+- Debugging specific components
+- Modular traceability
+
+---
+
+### 16. **How to handle multiple safety-critical threads logging simultaneously?**
+
+In systems where multiple safety-critical components access the logger concurrently, we use a thread-safe mechanism to prevent race conditions.
+
+Currently, we use `QMutex` to ensure serialized access to the `log()` method. Each logging call acquires the lock using `QMutexLocker`, which ensures thread-safe, atomic logging.
+
+In the next version, we plan to implement:
+- **Multiple logger types**: e.g., SynchronousLogger and AsyncLogger.
+- **Producer-Consumer based AsyncLogger**: where logs are queued and written by a background thread.
+- **Module-specific loggers** with priority queues.
+- **Dynamic log filters** based on criticality or runtime settings.
+
+This upgrade will ensure minimal logging latency, prioritized writes, and full scalability for concurrent systems.
+
+---
+
+This logger system shows clear understanding of:
+- SOLID principles (especially Single Responsibility and Open-Closed)
+- Embedded constraints
+- Safety-critical system logging
+- Real-world debug needs
+
+Multithreading notes:
+**Qt Multithreading Notes for Logger Implementation (Revision Guide)**
+
+---
+
+### 🔐 Why Multithreading is Important in Logging
+- Multiple ADAS or sensor modules may log data simultaneously.
+- Logger must be thread-safe to avoid race conditions.
+- Without protection, QTextStream and QFile can be corrupted if accessed concurrently.
+
+---
+
+### ✅ Solution: Use `QMutex` and `QMutexLocker`
+
+**QMutex** is a mutual exclusion lock provided by Qt to prevent concurrent access to shared resources.
+
+**QMutexLocker** is a wrapper that locks the mutex when the locker is created, and unlocks it automatically when the locker goes out of scope.
+
+---
+
+### 🧠 RAII Principle in `QMutexLocker`
+> RAII = Resource Acquisition Is Initialization
+
+- `QMutexLocker locker(&mutex);` automatically acquires the lock.
+- When the `locker` goes out of scope (function exit or exception), the mutex is automatically released.
+
+**No need for manual unlock. Safe, clean, and deadlock-proof.**
+
+---
+
+### 🔄 Logger Integration Example
+```cpp
+void logger::log(const QString &msg, Level level, const QString &tag, const QString &reqId) {
+    QMutexLocker locker(&mutex);  // 🔐 Lock acquired
+
+    if (!debugEnabled && level == DEBUG)
+        return;
+
+    QString logMessage = getTimeStamp();
+    logMessage += " " + logLevelToString(level);
+    logMessage += " [" + tag + "]";
+
+    if (!reqId.isEmpty()) {
+        logMessage += "[" + reqId + "]";
+    }
+
+    logMessage += " " + msg;
+
+    if (stream.device()) {
+        stream << logMessage << Qt::endl;
+        stream.flush();
+    }
+
+    qDebug() << logMessage;
+} // 🔓 Lock automatically released
+```
+
+---
+
+### 💡 Advantages of QMutexLocker
+- Cleaner code (no forgetful unlock)
+- Works even if an exception occurs
+- Great for function-scope locking
+
+---
+
+### 🚨 When to Use QMutex in Logger
+- When accessing or modifying shared resources (like QFile or QTextStream)
+- When logger is accessed from multiple threads (e.g., ADAS subsystems)
+
+---
+
+### 📚 Summary Points to Remember
+- Use `QMutexLocker` for thread-safe locking
+- Let RAII handle lock release
+- Always protect log file and stream access
+- Keep locking duration minimal (just around log construction + writing)
+
+---
+
+This setup ensures your logger behaves predictably even when multiple threads log simultaneously.
+
 
  
 

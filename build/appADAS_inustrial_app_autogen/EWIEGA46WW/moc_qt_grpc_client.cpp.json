@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "qt_grpc_client",
+            "lineNumber": 9,
+            "object": true,
+            "qualifiedClassName": "qt_grpc_client",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "qt_grpc_client.h",
+    "outputRevision": 68
+}
