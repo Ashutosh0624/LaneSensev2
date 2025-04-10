@@ -19,10 +19,10 @@ class EmptyRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EmptyRequest> _instance;
 } _EmptyRequest_default_instance_;
-class SensorDataDefaultTypeInternal {
+class SensorResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SensorData> _instance;
-} _SensorData_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SensorResponse> _instance;
+} _SensorResponse_default_instance_;
 }  // namespace carla
 static void InitDefaultsscc_info_EmptyRequest_carla_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -38,19 +38,19 @@ static void InitDefaultsscc_info_EmptyRequest_carla_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_EmptyRequest_carla_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_EmptyRequest_carla_2eproto}, {}};
 
-static void InitDefaultsscc_info_SensorData_carla_2eproto() {
+static void InitDefaultsscc_info_SensorResponse_carla_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::carla::_SensorData_default_instance_;
-    new (ptr) ::carla::SensorData();
+    void* ptr = &::carla::_SensorResponse_default_instance_;
+    new (ptr) ::carla::SensorResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::carla::SensorData::InitAsDefaultInstance();
+  ::carla::SensorResponse::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SensorData_carla_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SensorData_carla_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SensorResponse_carla_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SensorResponse_carla_2eproto}, {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_carla_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_carla_2eproto = nullptr;
@@ -63,48 +63,49 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_carla_2eproto::offsets[] PROTO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, speed_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, acceleration_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, steering_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, brake_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, throttle_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, lane_offset_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, traffic_sign_),
-  PROTOBUF_FIELD_OFFSET(::carla::SensorData, status_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, speed_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, acceleration_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, steering_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, brake_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, throttle_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, lane_offset_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, traffic_sign_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, status_),
+  PROTOBUF_FIELD_OFFSET(::carla::SensorResponse, sensor_ok_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::carla::EmptyRequest)},
-  { 5, -1, sizeof(::carla::SensorData)},
+  { 5, -1, sizeof(::carla::SensorResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::carla::_EmptyRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::carla::_SensorData_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::carla::_SensorResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_carla_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013carla.proto\022\005carla\"\016\n\014EmptyRequest\"\237\001\n"
-  "\nSensorData\022\r\n\005speed\030\001 \001(\002\022\024\n\014accelerati"
-  "on\030\002 \001(\002\022\020\n\010steering\030\003 \001(\002\022\r\n\005brake\030\004 \001("
-  "\002\022\020\n\010throttle\030\005 \001(\002\022\023\n\013lane_offset\030\006 \001(\002"
-  "\022\024\n\014traffic_sign\030\007 \001(\t\022\016\n\006status\030\010 \001(\t2K"
-  "\n\020CarlaDataService\0227\n\rGetSensorData\022\023.ca"
-  "rla.EmptyRequest\032\021.carla.SensorDatab\006pro"
-  "to3"
+  "\n\013carla.proto\022\005carla\"\016\n\014EmptyRequest\"\266\001\n"
+  "\016SensorResponse\022\r\n\005speed\030\001 \001(\002\022\024\n\014accele"
+  "ration\030\002 \001(\002\022\020\n\010steering\030\003 \001(\002\022\r\n\005brake\030"
+  "\004 \001(\002\022\020\n\010throttle\030\005 \001(\002\022\023\n\013lane_offset\030\006"
+  " \001(\002\022\024\n\014traffic_sign\030\007 \001(\t\022\016\n\006status\030\010 \001"
+  "(\t\022\021\n\tsensor_ok\030\t \001(\0102O\n\020CarlaDataServic"
+  "e\022;\n\rGetSensorData\022\023.carla.EmptyRequest\032"
+  "\025.carla.SensorResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_carla_2eproto_deps[1] = {
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_carla_2eproto_sccs[2] = {
   &scc_info_EmptyRequest_carla_2eproto.base,
-  &scc_info_SensorData_carla_2eproto.base,
+  &scc_info_SensorResponse_carla_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_carla_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_carla_2eproto = {
-  false, false, descriptor_table_protodef_carla_2eproto, "carla.proto", 283,
+  false, false, descriptor_table_protodef_carla_2eproto, "carla.proto", 310,
   &descriptor_table_carla_2eproto_once, descriptor_table_carla_2eproto_sccs, descriptor_table_carla_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_carla_2eproto::offsets,
   file_level_metadata_carla_2eproto, 2, file_level_enum_descriptors_carla_2eproto, file_level_service_descriptors_carla_2eproto,
@@ -281,19 +282,19 @@ void EmptyRequest::InternalSwap(EmptyRequest* other) {
 
 // ===================================================================
 
-void SensorData::InitAsDefaultInstance() {
+void SensorResponse::InitAsDefaultInstance() {
 }
-class SensorData::_Internal {
+class SensorResponse::_Internal {
  public:
 };
 
-SensorData::SensorData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+SensorResponse::SensorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:carla.SensorData)
+  // @@protoc_insertion_point(arena_constructor:carla.SensorResponse)
 }
-SensorData::SensorData(const SensorData& from)
+SensorResponse::SensorResponse(const SensorResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   traffic_sign_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -307,49 +308,49 @@ SensorData::SensorData(const SensorData& from)
       GetArena());
   }
   ::memcpy(&speed_, &from.speed_,
-    static_cast<size_t>(reinterpret_cast<char*>(&lane_offset_) -
-    reinterpret_cast<char*>(&speed_)) + sizeof(lane_offset_));
-  // @@protoc_insertion_point(copy_constructor:carla.SensorData)
+    static_cast<size_t>(reinterpret_cast<char*>(&sensor_ok_) -
+    reinterpret_cast<char*>(&speed_)) + sizeof(sensor_ok_));
+  // @@protoc_insertion_point(copy_constructor:carla.SensorResponse)
 }
 
-void SensorData::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SensorData_carla_2eproto.base);
+void SensorResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SensorResponse_carla_2eproto.base);
   traffic_sign_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   status_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&speed_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&lane_offset_) -
-      reinterpret_cast<char*>(&speed_)) + sizeof(lane_offset_));
+      reinterpret_cast<char*>(&sensor_ok_) -
+      reinterpret_cast<char*>(&speed_)) + sizeof(sensor_ok_));
 }
 
-SensorData::~SensorData() {
-  // @@protoc_insertion_point(destructor:carla.SensorData)
+SensorResponse::~SensorResponse() {
+  // @@protoc_insertion_point(destructor:carla.SensorResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void SensorData::SharedDtor() {
+void SensorResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   traffic_sign_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   status_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void SensorData::ArenaDtor(void* object) {
-  SensorData* _this = reinterpret_cast< SensorData* >(object);
+void SensorResponse::ArenaDtor(void* object) {
+  SensorResponse* _this = reinterpret_cast< SensorResponse* >(object);
   (void)_this;
 }
-void SensorData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void SensorResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void SensorData::SetCachedSize(int size) const {
+void SensorResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const SensorData& SensorData::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SensorData_carla_2eproto.base);
+const SensorResponse& SensorResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SensorResponse_carla_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void SensorData::Clear() {
-// @@protoc_insertion_point(message_clear_start:carla.SensorData)
+void SensorResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:carla.SensorResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -357,12 +358,12 @@ void SensorData::Clear() {
   traffic_sign_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   status_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&speed_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&lane_offset_) -
-      reinterpret_cast<char*>(&speed_)) + sizeof(lane_offset_));
+      reinterpret_cast<char*>(&sensor_ok_) -
+      reinterpret_cast<char*>(&speed_)) + sizeof(sensor_ok_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SensorData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SensorResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -417,7 +418,7 @@ const char* SensorData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
           auto str = _internal_mutable_traffic_sign();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "carla.SensorData.traffic_sign"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "carla.SensorResponse.traffic_sign"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -426,7 +427,14 @@ const char* SensorData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
           auto str = _internal_mutable_status();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "carla.SensorData.status"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "carla.SensorResponse.status"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool sensor_ok = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+          sensor_ok_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -452,9 +460,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SensorData::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* SensorResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:carla.SensorData)
+  // @@protoc_insertion_point(serialize_to_array_start:carla.SensorResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -499,7 +507,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_traffic_sign().data(), static_cast<int>(this->_internal_traffic_sign().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "carla.SensorData.traffic_sign");
+      "carla.SensorResponse.traffic_sign");
     target = stream->WriteStringMaybeAliased(
         7, this->_internal_traffic_sign(), target);
   }
@@ -509,21 +517,27 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_status().data(), static_cast<int>(this->_internal_status().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "carla.SensorData.status");
+      "carla.SensorResponse.status");
     target = stream->WriteStringMaybeAliased(
         8, this->_internal_status(), target);
+  }
+
+  // bool sensor_ok = 9;
+  if (this->sensor_ok() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(9, this->_internal_sensor_ok(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:carla.SensorData)
+  // @@protoc_insertion_point(serialize_to_array_end:carla.SensorResponse)
   return target;
 }
 
-size_t SensorData::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:carla.SensorData)
+size_t SensorResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:carla.SensorResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -574,6 +588,11 @@ size_t SensorData::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
+  // bool sensor_ok = 9;
+  if (this->sensor_ok() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -583,23 +602,23 @@ size_t SensorData::ByteSizeLong() const {
   return total_size;
 }
 
-void SensorData::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:carla.SensorData)
+void SensorResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:carla.SensorResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const SensorData* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SensorData>(
+  const SensorResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SensorResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:carla.SensorData)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:carla.SensorResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:carla.SensorData)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:carla.SensorResponse)
     MergeFrom(*source);
   }
 }
 
-void SensorData::MergeFrom(const SensorData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:carla.SensorData)
+void SensorResponse::MergeFrom(const SensorResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:carla.SensorResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -629,40 +648,43 @@ void SensorData::MergeFrom(const SensorData& from) {
   if (!(from.lane_offset() <= 0 && from.lane_offset() >= 0)) {
     _internal_set_lane_offset(from._internal_lane_offset());
   }
+  if (from.sensor_ok() != 0) {
+    _internal_set_sensor_ok(from._internal_sensor_ok());
+  }
 }
 
-void SensorData::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:carla.SensorData)
+void SensorResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:carla.SensorResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SensorData::CopyFrom(const SensorData& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:carla.SensorData)
+void SensorResponse::CopyFrom(const SensorResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:carla.SensorResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SensorData::IsInitialized() const {
+bool SensorResponse::IsInitialized() const {
   return true;
 }
 
-void SensorData::InternalSwap(SensorData* other) {
+void SensorResponse::InternalSwap(SensorResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   traffic_sign_.Swap(&other->traffic_sign_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   status_.Swap(&other->status_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SensorData, lane_offset_)
-      + sizeof(SensorData::lane_offset_)
-      - PROTOBUF_FIELD_OFFSET(SensorData, speed_)>(
+      PROTOBUF_FIELD_OFFSET(SensorResponse, sensor_ok_)
+      + sizeof(SensorResponse::sensor_ok_)
+      - PROTOBUF_FIELD_OFFSET(SensorResponse, speed_)>(
           reinterpret_cast<char*>(&speed_),
           reinterpret_cast<char*>(&other->speed_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SensorData::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SensorResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -673,8 +695,8 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::carla::EmptyRequest* Arena::CreateMaybeMessage< ::carla::EmptyRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::carla::EmptyRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::carla::SensorData* Arena::CreateMaybeMessage< ::carla::SensorData >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::carla::SensorData >(arena);
+template<> PROTOBUF_NOINLINE ::carla::SensorResponse* Arena::CreateMaybeMessage< ::carla::SensorResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::carla::SensorResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

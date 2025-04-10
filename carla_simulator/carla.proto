@@ -3,12 +3,12 @@ syntax = "proto3";
 package carla;
 
 service CarlaDataService {
-  rpc GetSensorData (EmptyRequest) returns (SensorData);
+  rpc GetSensorData (EmptyRequest) returns (SensorResponse);
 }
 
 message EmptyRequest {}
 
-message SensorData {
+message SensorResponse {
   float speed = 1;
   float acceleration = 2;
   float steering = 3;
@@ -17,4 +17,5 @@ message SensorData {
   float lane_offset = 6;
   string traffic_sign = 7;
   string status = 8;
+  bool sensor_ok = 9;   // ✅ Add this field
 }

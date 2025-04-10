@@ -16,7 +16,7 @@ class CarlaDataServiceStub(object):
         """
         self.GetSensorData = channel.unary_unary(
                 '/carla.CarlaDataService/GetSensorData',
-                request_serializer=carla__pb2.SensorRequest.SerializeToString,
+                request_serializer=carla__pb2.EmptyRequest.SerializeToString,
                 response_deserializer=carla__pb2.SensorResponse.FromString,
                 )
 
@@ -35,7 +35,7 @@ def add_CarlaDataServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetSensorData': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSensorData,
-                    request_deserializer=carla__pb2.SensorRequest.FromString,
+                    request_deserializer=carla__pb2.EmptyRequest.FromString,
                     response_serializer=carla__pb2.SensorResponse.SerializeToString,
             ),
     }
@@ -60,7 +60,7 @@ class CarlaDataService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/carla.CarlaDataService/GetSensorData',
-            carla__pb2.SensorRequest.SerializeToString,
+            carla__pb2.EmptyRequest.SerializeToString,
             carla__pb2.SensorResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

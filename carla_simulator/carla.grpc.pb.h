@@ -36,27 +36,27 @@ class CarlaDataService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorData* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>> AsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>>(AsyncGetSensorDataRaw(context, request, cq));
+    virtual ::grpc::Status GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>> AsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>>(AsyncGetSensorDataRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>> PrepareAsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>>(PrepareAsyncGetSensorDataRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>> PrepareAsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>>(PrepareAsyncGetSensorDataRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -67,33 +67,33 @@ class CarlaDataService final {
     #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>* AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorData>* PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>* AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::carla::SensorResponse>* PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorData* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorData>> AsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorData>>(AsyncGetSensorDataRaw(context, request, cq));
+    ::grpc::Status GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>> AsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>>(AsyncGetSensorDataRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorData>> PrepareAsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorData>>(PrepareAsyncGetSensorDataRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>> PrepareAsyncGetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>>(PrepareAsyncGetSensorDataRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, std::function<void(::grpc::Status)>) override;
-      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, std::function<void(::grpc::Status)>) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -106,8 +106,8 @@ class CarlaDataService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::carla::SensorData>* AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::carla::SensorData>* PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>* AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>* PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetSensorData_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -116,7 +116,7 @@ class CarlaDataService final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status GetSensorData(::grpc::ServerContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response);
+    virtual ::grpc::Status GetSensorData(::grpc::ServerContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_GetSensorData : public BaseClass {
@@ -130,11 +130,11 @@ class CarlaDataService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetSensorData(::grpc::ServerContext* context, ::carla::EmptyRequest* request, ::grpc::ServerAsyncResponseWriter< ::carla::SensorData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetSensorData(::grpc::ServerContext* context, ::carla::EmptyRequest* request, ::grpc::ServerAsyncResponseWriter< ::carla::SensorResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -151,38 +151,38 @@ class CarlaDataService final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(0,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::carla::EmptyRequest, ::carla::SensorData>(
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::carla::EmptyRequest, ::carla::SensorResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::carla::EmptyRequest* request, ::carla::SensorData* response) { return this->GetSensorData(context, request, response); }));}
+                     context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response) { return this->GetSensorData(context, request, response); }));}
     void SetMessageAllocatorFor_GetSensorData(
-        ::grpc::experimental::MessageAllocator< ::carla::EmptyRequest, ::carla::SensorData>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::carla::EmptyRequest, ::carla::SensorResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
     #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::carla::EmptyRequest, ::carla::SensorData>*>(handler)
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::carla::EmptyRequest, ::carla::SensorResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_GetSensorData() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSensorData(
-      ::grpc::CallbackServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* GetSensorData(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -203,7 +203,7 @@ class CarlaDataService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -220,7 +220,7 @@ class CarlaDataService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -253,7 +253,7 @@ class CarlaDataService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -274,10 +274,10 @@ class CarlaDataService final {
     WithStreamedUnaryMethod_GetSensorData() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::carla::EmptyRequest, ::carla::SensorData>(
+          ::carla::EmptyRequest, ::carla::SensorResponse>(
             [this](::grpc_impl::ServerContext* context,
                    ::grpc_impl::ServerUnaryStreamer<
-                     ::carla::EmptyRequest, ::carla::SensorData>* streamer) {
+                     ::carla::EmptyRequest, ::carla::SensorResponse>* streamer) {
                        return this->StreamedGetSensorData(context,
                          streamer);
                   }));
@@ -286,12 +286,12 @@ class CarlaDataService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorData* /*response*/) override {
+    ::grpc::Status GetSensorData(::grpc::ServerContext* /*context*/, const ::carla::EmptyRequest* /*request*/, ::carla::SensorResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedGetSensorData(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::carla::EmptyRequest,::carla::SensorData>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedGetSensorData(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::carla::EmptyRequest,::carla::SensorResponse>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_GetSensorData<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;

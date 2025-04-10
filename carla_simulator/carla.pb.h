@@ -58,13 +58,13 @@ namespace carla {
 class EmptyRequest;
 class EmptyRequestDefaultTypeInternal;
 extern EmptyRequestDefaultTypeInternal _EmptyRequest_default_instance_;
-class SensorData;
-class SensorDataDefaultTypeInternal;
-extern SensorDataDefaultTypeInternal _SensorData_default_instance_;
+class SensorResponse;
+class SensorResponseDefaultTypeInternal;
+extern SensorResponseDefaultTypeInternal _SensorResponse_default_instance_;
 }  // namespace carla
 PROTOBUF_NAMESPACE_OPEN
 template<> ::carla::EmptyRequest* Arena::CreateMaybeMessage<::carla::EmptyRequest>(Arena*);
-template<> ::carla::SensorData* Arena::CreateMaybeMessage<::carla::SensorData>(Arena*);
+template<> ::carla::SensorResponse* Arena::CreateMaybeMessage<::carla::SensorResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace carla {
 
@@ -194,23 +194,23 @@ class EmptyRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class SensorData PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:carla.SensorData) */ {
+class SensorResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:carla.SensorResponse) */ {
  public:
-  inline SensorData() : SensorData(nullptr) {};
-  virtual ~SensorData();
+  inline SensorResponse() : SensorResponse(nullptr) {};
+  virtual ~SensorResponse();
 
-  SensorData(const SensorData& from);
-  SensorData(SensorData&& from) noexcept
-    : SensorData() {
+  SensorResponse(const SensorResponse& from);
+  SensorResponse(SensorResponse&& from) noexcept
+    : SensorResponse() {
     *this = ::std::move(from);
   }
 
-  inline SensorData& operator=(const SensorData& from) {
+  inline SensorResponse& operator=(const SensorResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SensorData& operator=(SensorData&& from) noexcept {
+  inline SensorResponse& operator=(SensorResponse&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -228,20 +228,20 @@ class SensorData PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const SensorData& default_instance();
+  static const SensorResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SensorData* internal_default_instance() {
-    return reinterpret_cast<const SensorData*>(
-               &_SensorData_default_instance_);
+  static inline const SensorResponse* internal_default_instance() {
+    return reinterpret_cast<const SensorResponse*>(
+               &_SensorResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(SensorData& a, SensorData& b) {
+  friend void swap(SensorResponse& a, SensorResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SensorData* other) {
+  inline void Swap(SensorResponse* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -249,7 +249,7 @@ class SensorData PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SensorData* other) {
+  void UnsafeArenaSwap(SensorResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -257,17 +257,17 @@ class SensorData PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline SensorData* New() const final {
-    return CreateMaybeMessage<SensorData>(nullptr);
+  inline SensorResponse* New() const final {
+    return CreateMaybeMessage<SensorResponse>(nullptr);
   }
 
-  SensorData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<SensorData>(arena);
+  SensorResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SensorResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const SensorData& from);
-  void MergeFrom(const SensorData& from);
+  void CopyFrom(const SensorResponse& from);
+  void MergeFrom(const SensorResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -281,13 +281,13 @@ class SensorData PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SensorData* other);
+  void InternalSwap(SensorResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "carla.SensorData";
+    return "carla.SensorResponse";
   }
   protected:
-  explicit SensorData(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit SensorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -315,6 +315,7 @@ class SensorData PROTOBUF_FINAL :
     kBrakeFieldNumber = 4,
     kThrottleFieldNumber = 5,
     kLaneOffsetFieldNumber = 6,
+    kSensorOkFieldNumber = 9,
   };
   // string traffic_sign = 7;
   void clear_traffic_sign();
@@ -420,7 +421,16 @@ class SensorData PROTOBUF_FINAL :
   void _internal_set_lane_offset(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:carla.SensorData)
+  // bool sensor_ok = 9;
+  void clear_sensor_ok();
+  bool sensor_ok() const;
+  void set_sensor_ok(bool value);
+  private:
+  bool _internal_sensor_ok() const;
+  void _internal_set_sensor_ok(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:carla.SensorResponse)
  private:
   class _Internal;
 
@@ -435,6 +445,7 @@ class SensorData PROTOBUF_FINAL :
   float brake_;
   float throttle_;
   float lane_offset_;
+  bool sensor_ok_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_carla_2eproto;
 };
@@ -451,180 +462,180 @@ class SensorData PROTOBUF_FINAL :
 
 // -------------------------------------------------------------------
 
-// SensorData
+// SensorResponse
 
 // float speed = 1;
-inline void SensorData::clear_speed() {
+inline void SensorResponse::clear_speed() {
   speed_ = 0;
 }
-inline float SensorData::_internal_speed() const {
+inline float SensorResponse::_internal_speed() const {
   return speed_;
 }
-inline float SensorData::speed() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.speed)
+inline float SensorResponse::speed() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.speed)
   return _internal_speed();
 }
-inline void SensorData::_internal_set_speed(float value) {
+inline void SensorResponse::_internal_set_speed(float value) {
   
   speed_ = value;
 }
-inline void SensorData::set_speed(float value) {
+inline void SensorResponse::set_speed(float value) {
   _internal_set_speed(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.speed)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.speed)
 }
 
 // float acceleration = 2;
-inline void SensorData::clear_acceleration() {
+inline void SensorResponse::clear_acceleration() {
   acceleration_ = 0;
 }
-inline float SensorData::_internal_acceleration() const {
+inline float SensorResponse::_internal_acceleration() const {
   return acceleration_;
 }
-inline float SensorData::acceleration() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.acceleration)
+inline float SensorResponse::acceleration() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.acceleration)
   return _internal_acceleration();
 }
-inline void SensorData::_internal_set_acceleration(float value) {
+inline void SensorResponse::_internal_set_acceleration(float value) {
   
   acceleration_ = value;
 }
-inline void SensorData::set_acceleration(float value) {
+inline void SensorResponse::set_acceleration(float value) {
   _internal_set_acceleration(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.acceleration)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.acceleration)
 }
 
 // float steering = 3;
-inline void SensorData::clear_steering() {
+inline void SensorResponse::clear_steering() {
   steering_ = 0;
 }
-inline float SensorData::_internal_steering() const {
+inline float SensorResponse::_internal_steering() const {
   return steering_;
 }
-inline float SensorData::steering() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.steering)
+inline float SensorResponse::steering() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.steering)
   return _internal_steering();
 }
-inline void SensorData::_internal_set_steering(float value) {
+inline void SensorResponse::_internal_set_steering(float value) {
   
   steering_ = value;
 }
-inline void SensorData::set_steering(float value) {
+inline void SensorResponse::set_steering(float value) {
   _internal_set_steering(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.steering)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.steering)
 }
 
 // float brake = 4;
-inline void SensorData::clear_brake() {
+inline void SensorResponse::clear_brake() {
   brake_ = 0;
 }
-inline float SensorData::_internal_brake() const {
+inline float SensorResponse::_internal_brake() const {
   return brake_;
 }
-inline float SensorData::brake() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.brake)
+inline float SensorResponse::brake() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.brake)
   return _internal_brake();
 }
-inline void SensorData::_internal_set_brake(float value) {
+inline void SensorResponse::_internal_set_brake(float value) {
   
   brake_ = value;
 }
-inline void SensorData::set_brake(float value) {
+inline void SensorResponse::set_brake(float value) {
   _internal_set_brake(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.brake)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.brake)
 }
 
 // float throttle = 5;
-inline void SensorData::clear_throttle() {
+inline void SensorResponse::clear_throttle() {
   throttle_ = 0;
 }
-inline float SensorData::_internal_throttle() const {
+inline float SensorResponse::_internal_throttle() const {
   return throttle_;
 }
-inline float SensorData::throttle() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.throttle)
+inline float SensorResponse::throttle() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.throttle)
   return _internal_throttle();
 }
-inline void SensorData::_internal_set_throttle(float value) {
+inline void SensorResponse::_internal_set_throttle(float value) {
   
   throttle_ = value;
 }
-inline void SensorData::set_throttle(float value) {
+inline void SensorResponse::set_throttle(float value) {
   _internal_set_throttle(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.throttle)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.throttle)
 }
 
 // float lane_offset = 6;
-inline void SensorData::clear_lane_offset() {
+inline void SensorResponse::clear_lane_offset() {
   lane_offset_ = 0;
 }
-inline float SensorData::_internal_lane_offset() const {
+inline float SensorResponse::_internal_lane_offset() const {
   return lane_offset_;
 }
-inline float SensorData::lane_offset() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.lane_offset)
+inline float SensorResponse::lane_offset() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.lane_offset)
   return _internal_lane_offset();
 }
-inline void SensorData::_internal_set_lane_offset(float value) {
+inline void SensorResponse::_internal_set_lane_offset(float value) {
   
   lane_offset_ = value;
 }
-inline void SensorData::set_lane_offset(float value) {
+inline void SensorResponse::set_lane_offset(float value) {
   _internal_set_lane_offset(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.lane_offset)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.lane_offset)
 }
 
 // string traffic_sign = 7;
-inline void SensorData::clear_traffic_sign() {
+inline void SensorResponse::clear_traffic_sign() {
   traffic_sign_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& SensorData::traffic_sign() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.traffic_sign)
+inline const std::string& SensorResponse::traffic_sign() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.traffic_sign)
   return _internal_traffic_sign();
 }
-inline void SensorData::set_traffic_sign(const std::string& value) {
+inline void SensorResponse::set_traffic_sign(const std::string& value) {
   _internal_set_traffic_sign(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.traffic_sign)
 }
-inline std::string* SensorData::mutable_traffic_sign() {
-  // @@protoc_insertion_point(field_mutable:carla.SensorData.traffic_sign)
+inline std::string* SensorResponse::mutable_traffic_sign() {
+  // @@protoc_insertion_point(field_mutable:carla.SensorResponse.traffic_sign)
   return _internal_mutable_traffic_sign();
 }
-inline const std::string& SensorData::_internal_traffic_sign() const {
+inline const std::string& SensorResponse::_internal_traffic_sign() const {
   return traffic_sign_.Get();
 }
-inline void SensorData::_internal_set_traffic_sign(const std::string& value) {
+inline void SensorResponse::_internal_set_traffic_sign(const std::string& value) {
   
   traffic_sign_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void SensorData::set_traffic_sign(std::string&& value) {
+inline void SensorResponse::set_traffic_sign(std::string&& value) {
   
   traffic_sign_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_set_rvalue:carla.SensorResponse.traffic_sign)
 }
-inline void SensorData::set_traffic_sign(const char* value) {
+inline void SensorResponse::set_traffic_sign(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   traffic_sign_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_set_char:carla.SensorResponse.traffic_sign)
 }
-inline void SensorData::set_traffic_sign(const char* value,
+inline void SensorResponse::set_traffic_sign(const char* value,
     size_t size) {
   
   traffic_sign_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_set_pointer:carla.SensorResponse.traffic_sign)
 }
-inline std::string* SensorData::_internal_mutable_traffic_sign() {
+inline std::string* SensorResponse::_internal_mutable_traffic_sign() {
   
   return traffic_sign_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* SensorData::release_traffic_sign() {
-  // @@protoc_insertion_point(field_release:carla.SensorData.traffic_sign)
+inline std::string* SensorResponse::release_traffic_sign() {
+  // @@protoc_insertion_point(field_release:carla.SensorResponse.traffic_sign)
   return traffic_sign_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void SensorData::set_allocated_traffic_sign(std::string* traffic_sign) {
+inline void SensorResponse::set_allocated_traffic_sign(std::string* traffic_sign) {
   if (traffic_sign != nullptr) {
     
   } else {
@@ -632,16 +643,16 @@ inline void SensorData::set_allocated_traffic_sign(std::string* traffic_sign) {
   }
   traffic_sign_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), traffic_sign,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_set_allocated:carla.SensorResponse.traffic_sign)
 }
-inline std::string* SensorData::unsafe_arena_release_traffic_sign() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:carla.SensorData.traffic_sign)
+inline std::string* SensorResponse::unsafe_arena_release_traffic_sign() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:carla.SensorResponse.traffic_sign)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return traffic_sign_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void SensorData::unsafe_arena_set_allocated_traffic_sign(
+inline void SensorResponse::unsafe_arena_set_allocated_traffic_sign(
     std::string* traffic_sign) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (traffic_sign != nullptr) {
@@ -651,61 +662,61 @@ inline void SensorData::unsafe_arena_set_allocated_traffic_sign(
   }
   traffic_sign_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       traffic_sign, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:carla.SensorData.traffic_sign)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:carla.SensorResponse.traffic_sign)
 }
 
 // string status = 8;
-inline void SensorData::clear_status() {
+inline void SensorResponse::clear_status() {
   status_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& SensorData::status() const {
-  // @@protoc_insertion_point(field_get:carla.SensorData.status)
+inline const std::string& SensorResponse::status() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.status)
   return _internal_status();
 }
-inline void SensorData::set_status(const std::string& value) {
+inline void SensorResponse::set_status(const std::string& value) {
   _internal_set_status(value);
-  // @@protoc_insertion_point(field_set:carla.SensorData.status)
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.status)
 }
-inline std::string* SensorData::mutable_status() {
-  // @@protoc_insertion_point(field_mutable:carla.SensorData.status)
+inline std::string* SensorResponse::mutable_status() {
+  // @@protoc_insertion_point(field_mutable:carla.SensorResponse.status)
   return _internal_mutable_status();
 }
-inline const std::string& SensorData::_internal_status() const {
+inline const std::string& SensorResponse::_internal_status() const {
   return status_.Get();
 }
-inline void SensorData::_internal_set_status(const std::string& value) {
+inline void SensorResponse::_internal_set_status(const std::string& value) {
   
   status_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void SensorData::set_status(std::string&& value) {
+inline void SensorResponse::set_status(std::string&& value) {
   
   status_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:carla.SensorData.status)
+  // @@protoc_insertion_point(field_set_rvalue:carla.SensorResponse.status)
 }
-inline void SensorData::set_status(const char* value) {
+inline void SensorResponse::set_status(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   status_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:carla.SensorData.status)
+  // @@protoc_insertion_point(field_set_char:carla.SensorResponse.status)
 }
-inline void SensorData::set_status(const char* value,
+inline void SensorResponse::set_status(const char* value,
     size_t size) {
   
   status_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:carla.SensorData.status)
+  // @@protoc_insertion_point(field_set_pointer:carla.SensorResponse.status)
 }
-inline std::string* SensorData::_internal_mutable_status() {
+inline std::string* SensorResponse::_internal_mutable_status() {
   
   return status_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* SensorData::release_status() {
-  // @@protoc_insertion_point(field_release:carla.SensorData.status)
+inline std::string* SensorResponse::release_status() {
+  // @@protoc_insertion_point(field_release:carla.SensorResponse.status)
   return status_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void SensorData::set_allocated_status(std::string* status) {
+inline void SensorResponse::set_allocated_status(std::string* status) {
   if (status != nullptr) {
     
   } else {
@@ -713,16 +724,16 @@ inline void SensorData::set_allocated_status(std::string* status) {
   }
   status_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), status,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:carla.SensorData.status)
+  // @@protoc_insertion_point(field_set_allocated:carla.SensorResponse.status)
 }
-inline std::string* SensorData::unsafe_arena_release_status() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:carla.SensorData.status)
+inline std::string* SensorResponse::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:carla.SensorResponse.status)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return status_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void SensorData::unsafe_arena_set_allocated_status(
+inline void SensorResponse::unsafe_arena_set_allocated_status(
     std::string* status) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (status != nullptr) {
@@ -732,7 +743,27 @@ inline void SensorData::unsafe_arena_set_allocated_status(
   }
   status_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       status, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:carla.SensorData.status)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:carla.SensorResponse.status)
+}
+
+// bool sensor_ok = 9;
+inline void SensorResponse::clear_sensor_ok() {
+  sensor_ok_ = false;
+}
+inline bool SensorResponse::_internal_sensor_ok() const {
+  return sensor_ok_;
+}
+inline bool SensorResponse::sensor_ok() const {
+  // @@protoc_insertion_point(field_get:carla.SensorResponse.sensor_ok)
+  return _internal_sensor_ok();
+}
+inline void SensorResponse::_internal_set_sensor_ok(bool value) {
+  
+  sensor_ok_ = value;
+}
+inline void SensorResponse::set_sensor_ok(bool value) {
+  _internal_set_sensor_ok(value);
+  // @@protoc_insertion_point(field_set:carla.SensorResponse.sensor_ok)
 }
 
 #ifdef __GNUC__

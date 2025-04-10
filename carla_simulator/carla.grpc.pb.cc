@@ -35,43 +35,43 @@ CarlaDataService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   : channel_(channel), rpcmethod_GetSensorData_(CarlaDataService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status CarlaDataService::Stub::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorData* response) {
+::grpc::Status CarlaDataService::Stub::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::carla::SensorResponse* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetSensorData_, context, request, response);
 }
 
-void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, std::function<void(::grpc::Status)> f) {
+void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetSensorData_, context, request, response, std::move(f));
 }
 
-void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, std::function<void(::grpc::Status)> f) {
+void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetSensorData_, context, request, response, std::move(f));
 }
 
-void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_GetSensorData_, context, request, response, reactor);
 }
 
-void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorData* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void CarlaDataService::Stub::experimental_async::GetSensorData(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::carla::SensorResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_GetSensorData_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::carla::SensorData>* CarlaDataService::Stub::AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::carla::SensorData>::Create(channel_.get(), cq, rpcmethod_GetSensorData_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>* CarlaDataService::Stub::AsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::carla::SensorResponse>::Create(channel_.get(), cq, rpcmethod_GetSensorData_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::carla::SensorData>* CarlaDataService::Stub::PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::carla::SensorData>::Create(channel_.get(), cq, rpcmethod_GetSensorData_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::carla::SensorResponse>* CarlaDataService::Stub::PrepareAsyncGetSensorDataRaw(::grpc::ClientContext* context, const ::carla::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::carla::SensorResponse>::Create(channel_.get(), cq, rpcmethod_GetSensorData_, context, request, false);
 }
 
 CarlaDataService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       CarlaDataService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< CarlaDataService::Service, ::carla::EmptyRequest, ::carla::SensorData>(
+      new ::grpc::internal::RpcMethodHandler< CarlaDataService::Service, ::carla::EmptyRequest, ::carla::SensorResponse>(
           [](CarlaDataService::Service* service,
              ::grpc_impl::ServerContext* ctx,
              const ::carla::EmptyRequest* req,
-             ::carla::SensorData* resp) {
+             ::carla::SensorResponse* resp) {
                return service->GetSensorData(ctx, req, resp);
              }, this)));
 }
@@ -79,7 +79,7 @@ CarlaDataService::Service::Service() {
 CarlaDataService::Service::~Service() {
 }
 
-::grpc::Status CarlaDataService::Service::GetSensorData(::grpc::ServerContext* context, const ::carla::EmptyRequest* request, ::carla::SensorData* response) {
+::grpc::Status CarlaDataService::Service::GetSensorData(::grpc::ServerContext* context, const ::carla::EmptyRequest* request, ::carla::SensorResponse* response) {
   (void) context;
   (void) request;
   (void) response;

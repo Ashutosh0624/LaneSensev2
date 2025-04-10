@@ -12,3 +12,4 @@ shared_data['steering_angle'] = 0.0
 shared_data['traffic_sign'] = ""
 shared_data['brake_status'] = False
 shared_data['acceleration'] = 0.0
+shared_data['sensor_ok'] = False 
