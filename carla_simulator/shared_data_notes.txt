@@ -1,0 +1,822 @@
+## shared_data.py - Explained with Interview Insights
+
+### Code:
+```python
+from multiprocessing import Manager
+
+manager = Manager()
+shared_data = manager.dict({
+    'speed': 0.0,
+    'distance': 0.0,
+    'lane_offset': 0.0,
+    'steering_angle': 0.0,
+    'traffic_sign': '',
+    'brake_status': False,
+    'acceleration': 0.0
+})
+```
+
+---
+
+### Line-by-Line Explanation:
+
+#### `from multiprocessing import Manager`
+- This imports the `Manager` class from Python's `multiprocessing` module.
+- `Manager` is used to create shared objects (like dicts, lists, etc.) that can be accessed and modified by multiple processes safely.
+
+> **Interview Insight:** Why use `multiprocessing.Manager()` instead of regular dictionary?
+> - Regular dict is not thread/process-safe.
+> - Manager provides proxy objects that allow sharing state between processes.
+
+---
+
+#### `manager = Manager()`
+- Creates a manager instance that can spawn shared objects.
+- Acts as a server process for handling shared memory objects.
+
+---
+
+#### `shared_data = manager.dict({...})`
+- `manager.dict()` creates a dictionary that can be shared across multiple processes.
+- It's a **proxy object** for an actual dictionary that lives in the manager server process.
+- Any process can read/write safely without needing explicit locks.
+
+> **Interview Insight:** What is the difference between `manager.dict()` and `multiprocessing.Value/Array`?
+> - `Value` and `Array` are low-level shared memory constructs.
+> - `manager.dict()` is higher-level and allows flexible key-value storage.
+
+---
+
+### Dictionary Keys & Use:
+- `'speed'`: Float – vehicle speed
+- `'distance'`: Float – distance to next object/lane marker
+- `'lane_offset'`: Float – how far car is from lane center
+- `'steering_angle'`: Float – current steering angle of the vehicle
+- `'traffic_sign'`: String – detected traffic sign (Stop, Yield, etc.)
+- `'brake_status'`: Boolean – True if brakes are applied
+- `'acceleration'`: Float – longitudinal acceleration value
+
+> **Interview Insight:** What are the benefits of a centralized shared dictionary for a sensor system?
+> - Decouples data producer and consumer.
+> - Real-time updates without tight coupling.
+> - Easy for gRPC/REST/Qt to access latest values.
+
+---
+
+### Real-World Scenario:
+- `carla_data_collector.py` updates the `shared_data` dict with real-time sensor data.
+- `grpc_server.py` reads from this dictionary and serves data to external gRPC clients.
+- Qt/C++ client can fetch structured, updated info easily without direct dependency on Carla code.
+
+> **Interview Insight:** How would you make this shared structure thread-safe in multi-threaded code?
+> - `manager.dict()` is already safe for concurrent access.
+> - But for very high performance, use `multiprocessing.Value`, `Array`, or external shared memory (like Redis or shared memory segments).
+
+---
+
+### Summary:
+- `shared_data.py` defines a process-safe, central data hub for the ADAS system.
+- Simplifies integration between CARLA (Python), gRPC (Python), and Qt (C++).
+- Enables modular, decoupled, and scalable architecture for sensor-based systems.
+
+
+
+
+************************************************************************************************************************************************************
+# 📘 shared_data.py - Notes & Explanation
+
+## 🔧 Purpose:
+This module creates a shared dictionary for inter-process communication using `multiprocessing.Manager().dict()`.
+
+---
+
+## 🔍 Code:
+```python
+from multiprocessing import Manager
+
+# Shared dictionary that can be accessed and modified by multiple processes
+shared_data = Manager().dict({
+    "speed": 0.0,
+    "distance": 0.0,
+    "lane_offset": 0.0,
+    "steering_angle": 0.0,
+    "traffic_sign": "",
+    "brake_status": False,
+    "acceleration": 0.0
+})
+```
+
+---
+
+## 🧠 Line-by-Line Explanation:
+
+### `from multiprocessing import Manager`
+- Imports `Manager` from Python's `multiprocessing` module.
+- `Manager` helps in sharing Python objects (like dictionaries, lists) between multiple processes.
+
+### `shared_data = Manager().dict({...})`
+- `Manager()` creates a manager object which controls a server process.
+- `.dict()` returns a proxy dictionary which is **thread-safe** and **process-safe**.
+- Initial values for keys like speed, lane_offset etc., are set to allow live updates by multiple components like sensors, simulators, or servers.
+
+---
+
+## 💡 Why Use This?
+- You need this when multiple scripts or services (like `carla_data_collector.py`, `grpc_server.py`) need to read/write the same data concurrently.
+- Regular dictionaries are not safe for concurrent access across processes.
+
+---
+
+## ❓ Possible Interview Questions:
+
+### 1. What is `multiprocessing.Manager()` and why is it used?
+**Answer:** It provides shared memory for Python objects among multiple processes. It is used to ensure safe concurrent read/write access.
+
+### 2. Why can't we just use a regular dictionary?
+**Answer:** Regular dictionaries aren't safe when accessed across multiple processes. Race conditions may occur.
+
+### 3. Can you name alternatives to `multiprocessing.Manager().dict()`?
+**Answer:** Yes, `multiprocessing.Queue`, `multiprocessing.Array`, or using sockets/gRPC for IPC.
+
+### 4. What is the difference between `multiprocessing` and `multithreading`?
+
+#### Multithreading:
+- Multiple threads within a single process
+- Shared memory
+- Subject to GIL (Global Interpreter Lock) in CPython
+- Better for IO-bound tasks
+
+#### Multiprocessing:
+- Separate memory for each process
+- True parallelism
+- No GIL
+- Better for CPU-bound tasks
+
+---
+
+## 🧪 Summary:
+This shared dictionary is the **central state holder** in a multi-component setup. It allows your CARLA sensor module, gRPC server, and other logic to work in harmony by synchronizing data in real-time.
+
+---
+
+Let me know when you're ready to move to the next component (e.g., `carla_data_collector.py` or `grpc_server.py`).
+
+******************************************************************************************************************************************************************
+
+
+
+**shared_data.py – Full Notes with Concepts & Interview Questions**
+
+---
+
+### ✅ What is `shared_data.py`?
+Ye ek simple Python module hai jisme ek shared dictionary hoti hai using `multiprocessing.Manager().dict()`. Iska kaam hai ek **central shared memory** structure provide karna jisko alag-alag processes access kar sakein – like data writer and data reader.
+
+---
+
+### 🔧 Code Breakdown:
+```python
+from multiprocessing import Manager
+
+manager = Manager()
+shared_data = manager.dict()
+```
+
+#### 📌 Line-by-line Explanation:
+1. **`from multiprocessing import Manager`**
+   - Python ka `multiprocessing` module allow karta hai multiple processes ko create karna (parallel execution).
+   - `Manager` ek helper class hai jo shared objects (jaise dict, list) create karta hai jinko processes access kar sakte hain.
+
+2. **`manager = Manager()`**
+   - Ye ek `Manager()` instance create karta hai jo internally ek server process banata hai.
+   - Ye server process sabhi shared resources ko control karta hai.
+
+3. **`shared_data = manager.dict()`**
+   - Ye ek **process-safe shared dictionary** banata hai.
+   - Ab multiple Python processes is `shared_data` ko safely read/write kar sakte hain.
+
+---
+
+### 🤔 Where is it Used?
+1. `carla_data_collector.py` → Carla simulator se live data fetch karega aur shared_data me update karega.
+2. `grpc_server.py` → shared_data se current values read karega jab Qt se client request kare.
+
+---
+
+### 🔁 Conceptual Flow:
+```
+Carla Simulator ──> carla_data_collector.py ──> shared_data[dict] <── grpc_server.py <── gRPC Qt Client
+                             ↑                                         ↑
+                           (writes)                                 (reads)
+```
+
+---
+
+### ❓ Interview Questions and Answers
+
+#### Q1: `multiprocessing.Manager()` kya karta hai?
+**A:** Ye ek server process banata hai jo multiple Python processes ke beech shared objects (dict, list) ko manage karta hai.
+
+#### Q2: `shared_data = manager.dict()` ka use kya hai?
+**A:** Isse ek thread-safe aur process-safe dictionary milti hai jisme ek process likh sakta hai aur doosra padh sakta hai without race conditions.
+
+#### Q3: Is `shared_data` ko multi-threaded context me bhi use kar sakte hain?
+**A:** Haan, but `multiprocessing.Manager()` ka primary use multi-process communication ke liye hota hai. Thread-safe bhi hota hai.
+
+#### Q4: `shared_data` kab update hota hai?
+**A:** `carla_data_collector.py` process real-time data update karta hai, aur `grpc_server.py` is data ko read karta hai.
+
+#### Q5: Yeh architecture kyu scalable hai?
+**A:** Kyunki read-write operations alag processes handle kar rahe hain aur gRPC abstraction allow karta hai multiple clients to connect.
+
+---
+
+### 🧠 Extra Concept: Multiprocessing vs Multithreading
+
+| Feature              | Multiprocessing                        | Multithreading                         |
+|----------------------|-----------------------------------------|----------------------------------------|
+| Execution Model     | Multiple processes                     | Multiple threads in same process       |
+| Memory Sharing      | Separate memory (via Manager/IPC)      | Shared memory                          |
+| Best for            | CPU-bound tasks                        | I/O-bound tasks                        |
+| Performance         | Better for parallel computation        | Lightweight, but limited by GIL        |
+| GIL (Global Lock)   | Doesn’t affect                        | Affects (in CPython)                  |
+
+---
+
+Next file to understand: **carla_data_collector.py** 🚗📡
+
+High - level flow of carla_data_collector.py
+
+1. CARLA simulator se connect karo
+2. Ek ego vehicle spawn karo
+3. Us vehicle ke sensors attach karo
+4. Har sensor callback me data fetch karo
+5. shared_data.shared_dict['key'] = value  se real-time data update karo
+
+
+******************************************************************************************************************************************************
+
+# Notes on `carla_data_collector.py`
+
+## 🔹 Purpose:
+This script connects to the CARLA simulator and spawns a vehicle. It continuously reads important sensor/vehicle parameters and stores them into a shared dictionary (`shared_data`) to be accessed by other processes (like a gRPC server).
+
+---
+
+## 🔹 Key Concepts & Components:
+
+### 1. `carla.Client()`
+- Connects to the CARLA simulator running at `localhost:2000`.
+
+### 2. `spawn_vehicle()`
+- Picks a random vehicle from blueprint library and spawns it at a random location on the map.
+
+### 3. `get_speed()`
+- Calculates the speed of the vehicle using its velocity vector.
+- Formula: `speed = 3.6 * sqrt(x^2 + y^2 + z^2)` to convert m/s to km/h.
+
+### 4. Shared Memory (`shared_data`)
+- A multiprocessing dictionary (`Manager().dict()`) that allows inter-process communication (IPC).
+
+### 5. Parameters Being Fetched:
+| Key            | Description                                |
+|----------------|--------------------------------------------|
+| `speed`        | Speed in km/h                              |
+| `acceleration` | Longitudinal acceleration in m/s^2         |
+| `steering`     | Steering angle (-1 to 1)                   |
+| `brake`        | Brake pressure (0 to 1)                    |
+| `throttle`     | Throttle pressure (0 to 1)                 |
+| `lane_offset`  | Y-axis position of the vehicle             |
+| `status`       | Status of data collection ("running")      |
+
+
+### 6. Real-Time Loop
+- A continuous `while True:` loop to fetch data every 0.1 seconds.
+- Stops when interrupted (KeyboardInterrupt), cleans up by destroying the vehicle.
+
+---
+
+## 📊 Real-World Use Cases:
+- **ADAS Feature Simulation** (speed monitoring, lane assist, cruise control)
+- **Testing embedded AI modules**
+- **Real-time gRPC client-server architecture**
+
+---
+
+## 🤔 Interview Questions & Answers
+
+### 🔍 Basics:
+**Q1. What is CARLA used for?**
+A: It's an open-source simulator for autonomous driving research.
+
+**Q2. Why use multiprocessing.Manager().dict()?**
+A: It allows shared memory across multiple Python processes.
+
+**Q3. What does get_velocity() return?**
+A: A 3D vector (x, y, z) in m/s.
+
+**Q4. Why is speed calculation multiplied by 3.6?**
+A: To convert speed from m/s to km/h.
+
+### 🚀 Advanced:
+**Q5. Why use shared memory over global variables?**
+A: Global variables don't work across processes. Shared memory is thread/process-safe.
+
+**Q6. How would you fetch traffic signs?**
+A: Using semantic segmentation camera or filtering world actors for traffic signs.
+
+**Q7. How would you scale this for multiple vehicles?**
+A: Use a list of vehicle actors and dictionaries for each.
+
+**Q8. Why is data updated every 0.1s?**
+A: To simulate real-time sensor polling without overloading the CPU.
+
+**Q9. Can this script be used with ROS?**
+A: Yes, with adaptation. It can publish data as ROS topics.
+
+**Q10. How would you store data for offline analysis?**
+A: Use CSV or database logging inside the loop.
+
+---
+
+## 🚀 Next Steps:
+- Add traffic sign detection
+- Add camera & lidar sensor modules
+- Save vehicle trajectory for visualization
+- Hook it to gRPC or WebSocket for frontend
+
+---
+
+This forms the foundational backend layer for a Qt-based real-time ADAS dashboard using Carla simulator data.
+
+****************************************************************************************************************************************
+
+
+# gRPC Server Integration Notes for Carla ADAS Project
+
+## 🧱 What is gRPC?
+- gRPC is a high-performance RPC (Remote Procedure Call) framework developed by Google.
+- It uses Protocol Buffers (`.proto`) for data serialization.
+- Enables communication between services written in different languages (e.g., Python server <-> C++ Qt client).
+
+---
+
+## ⚙️ Steps to Setup gRPC Communication
+
+### 1. Install gRPC Tools (Python)
+Activate your Python environment (e.g., `carla-env`) and install the tools:
+```bash
+pip install grpcio grpcio-tools
+```
+
+### 2. Create a `.proto` file
+Example: `carla.proto`
+```proto
+syntax = "proto3";
+
+package carla;
+
+service CarlaService {
+  rpc GetSensorData(EmptyRequest) returns (SensorData);
+}
+
+message EmptyRequest {}
+
+message SensorData {
+  float speed = 1;
+  float acceleration = 2;
+  float steering = 3;
+  float brake = 4;
+  float throttle = 5;
+  float lane_offset = 6;
+  string traffic_sign = 7;
+  string status = 8;
+}
+```
+
+### 3. Generate Python Code from `.proto`
+```bash
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. carla.proto
+```
+This generates two files:
+- `carla_pb2.py`: Contains the message and data structure definitions.
+- `carla_pb2_grpc.py`: Contains gRPC service definitions.
+
+### 4. Generate C++ Bindings (Optional)
+If you want Qt/C++ client:
+- Install `protoc` and `gRPC` C++ plugin.
+```bash
+protoc -I. --cpp_out=. carla.proto
+protoc -I. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` carla.proto
+```
+
+---
+
+## 🧩 Integration Overview
+
+### Python Side:
+- `shared_data.py`: Shared memory object (dict) using `multiprocessing.Manager()`.
+- `carla_data_collector.py`: Fetches data from Carla simulator and updates `shared_data`.
+- `grpc_server.py`: Hosts gRPC server that reads from `shared_data` and responds to client calls.
+
+### Qt/C++ Side:
+- `qt_grpc_client.cpp`: Uses gRPC C++ client to request sensor data and display on UI.
+
+---
+
+## 💡 Interview Questions & Answers
+
+1. **What is gRPC and how is it different from REST?**
+   - gRPC is a modern RPC framework using HTTP/2 and Protocol Buffers. Unlike REST, it supports streaming, better performance, smaller payloads, and strong typing.
+
+2. **What are Protocol Buffers and why use them?**
+   - Protocol Buffers are a language-neutral, platform-neutral, extensible way of serializing structured data. They're more efficient and smaller than JSON/XML.
+
+3. **How does gRPC support multi-language communication?**
+   - With `.proto` files, gRPC generates client/server bindings for multiple languages like Python, C++, Java, Go, etc., making cross-platform communication seamless.
+
+4. **How does the gRPC server interact with real-time data in Carla?**
+   - The server accesses `shared_data`, which is continuously updated by `carla_data_collector.py`. The gRPC handler reads from this shared memory.
+
+5. **What is the role of `shared_data` in your design?**
+   - It acts as a bridge for inter-process communication. `carla_data_collector.py` writes sensor data into it, while `grpc_server.py` reads from it.
+
+6. **How do you generate gRPC bindings in both Python and C++?**
+   - For Python: `grpcio-tools` is used. For C++: `protoc` and `grpc_cpp_plugin` are used to generate `.pb.cc` and `.grpc.pb.cc` files.
+
+7. **How is performance maintained in your gRPC server?**
+   - By using multiprocessing and shared memory, we ensure the Carla simulator data collection doesn't block gRPC response handling.
+
+8. **How is multiprocessing handled when Carla is running continuously?**
+   - We use `multiprocessing.Manager().dict()` to enable shared memory between the Carla collector process and the gRPC server process.
+
+9. **What are some potential failure points in this architecture?**
+   - Carla might crash or stop responding.
+   - gRPC server might not correctly serialize data.
+   - Shared memory might get out of sync if not properly synchronized.
+   - Client may not handle disconnection or malformed data gracefully.
+
+---
+
+Let me know when you're ready to write `grpc_server.py` or test with `qt_grpc_client.cpp` 🎯
+
+
+**********************************************************************************************************************************************
+
+build error 
+
+# gRPC Server Integration Notes for Carla ADAS Project
+
+## 🧱 What is gRPC?
+- gRPC is a high-performance RPC (Remote Procedure Call) framework developed by Google.
+- It uses Protocol Buffers (`.proto`) for data serialization.
+- Enables communication between services written in different languages (e.g., Python server <-> C++ Qt client).
+
+---
+
+## ⚙️ Steps to Setup gRPC Communication
+
+### 1. Install gRPC Tools (Python)
+Activate your Python environment (e.g., `carla-env`) and install the tools:
+```bash
+pip install grpcio grpcio-tools
+```
+
+### 2. Create a `.proto` file
+Example: `carla.proto`
+```proto
+syntax = "proto3";
+
+package carla;
+
+service CarlaService {
+  rpc GetSensorData(EmptyRequest) returns (SensorData);
+}
+
+message EmptyRequest {}
+
+message SensorData {
+  float speed = 1;
+  float acceleration = 2;
+  float steering = 3;
+  float brake = 4;
+  float throttle = 5;
+  float lane_offset = 6;
+  string traffic_sign = 7;
+  string status = 8;
+}
+```
+
+### 3. Generate Python Code from `.proto`
+```bash
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. carla.proto
+```
+This generates two files:
+- `carla_pb2.py`: Contains the message and data structure definitions.
+- `carla_pb2_grpc.py`: Contains gRPC service definitions.
+
+### 4. Generate C++ Bindings (Optional)
+If you want Qt/C++ client:
+- Install `protoc` and `gRPC` C++ plugin.
+```bash
+protoc -I. --cpp_out=. carla.proto
+protoc -I. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` carla.proto
+```
+
+---
+
+## 🧩 Integration Overview
+
+### Python Side:
+- `shared_data.py`: Shared memory object (dict) using `multiprocessing.Manager()`.
+- `carla_data_collector.py`: Fetches data from Carla simulator and updates `shared_data`.
+- `grpc_server.py`: Hosts gRPC server that reads from `shared_data` and responds to client calls.
+
+### Qt/C++ Side:
+- `qt_grpc_client.cpp`: Uses gRPC C++ client to request sensor data and display on UI.
+
+---
+
+## 💡 Interview Questions
+
+1. **What is gRPC and how is it different from REST?**
+2. **What are Protocol Buffers and why use them?**
+3. **How does gRPC support multi-language communication?**
+4. **How does the gRPC server interact with real-time data in Carla?**
+5. **What is the role of `shared_data` in your design?**
+6. **How do you generate gRPC bindings in both Python and C++?**
+7. **How is performance maintained in your gRPC server?**
+8. **How is multiprocessing handled when Carla is running continuously?**
+9. **What are some potential failure points in this architecture?**
+
+---
+
+## 🧯 gRPC CMake Build Error – Resolution Notes
+
+### ❌ Problem:
+When building the Qt C++ application using gRPC generated files (`carla.pb.cc`, `carla.grpc.pb.cc`), the following error occurred:
+```
+CMake Error at CMakeLists.txt:16 (find_package):
+  By not providing "FindgRPC.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "gRPC", but
+  CMake did not find one.
+```
+
+### 🧪 Cause:
+- CMake was unable to locate the `gRPCConfig.cmake` or `grpc-config.cmake` file required to link the gRPC C++ library.
+- The `find_package(gRPC REQUIRED)` failed because gRPC was not installed with a CMake package config.
+
+### ✅ Fix:
+1. **Comment out** the following lines in `CMakeLists.txt`:
+```cmake
+# find_package(Protobuf REQUIRED)
+# find_package(gRPC REQUIRED)
+```
+
+2. **Manually link libraries instead**:
+```cmake
+target_link_libraries(appADAS_inustrial_app
+    PRIVATE
+        Qt6::Quick
+        gRPC::grpc++
+        ${Protobuf_LIBRARIES}
+)
+```
+
+3. Alternatively, use system installed paths or pass a custom `-DgRPC_DIR` if you have installed gRPC from source.
+```bash
+cmake .. -DgRPC_DIR=/path/to/grpc/cmake
+```
+
+4. In our case, we skipped `find_package()` and directly used the generated `.pb.h`/`.pb.cc` files to proceed with build.
+
+---
+
+Let me know when you're ready to implement or test your `qt_grpc_client.cpp` 🚀
+
+
+*************************************************************************************************************************
+
+Client code analysis
+
+
+# gRPC Server Integration Notes for Carla ADAS Project
+
+## 🧱 What is gRPC?
+- gRPC is a high-performance RPC (Remote Procedure Call) framework developed by Google.
+- It uses Protocol Buffers (`.proto`) for data serialization.
+- Enables communication between services written in different languages (e.g., Python server <-> C++ Qt client).
+
+---
+
+## ⚙️ Steps to Setup gRPC Communication
+
+### 1. Install gRPC Tools (Python)
+Activate your Python environment (e.g., `carla-env`) and install the tools:
+```bash
+pip install grpcio grpcio-tools
+```
+
+### 2. Create a `.proto` file
+Example: `carla.proto`
+```proto
+syntax = "proto3";
+
+package carla;
+
+service CarlaService {
+  rpc GetSensorData(EmptyRequest) returns (SensorData);
+}
+
+message EmptyRequest {}
+
+message SensorData {
+  float speed = 1;
+  float acceleration = 2;
+  float steering = 3;
+  float brake = 4;
+  float throttle = 5;
+  float lane_offset = 6;
+  string traffic_sign = 7;
+  string status = 8;
+}
+```
+
+### 3. Generate Python Code from `.proto`
+```bash
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. carla.proto
+```
+This generates two files:
+- `carla_pb2.py`: Contains the message and data structure definitions.
+- `carla_pb2_grpc.py`: Contains gRPC service definitions.
+
+### 4. Generate C++ Bindings (Optional)
+If you want Qt/C++ client:
+- Install `protoc` and `gRPC` C++ plugin.
+```bash
+protoc -I. --cpp_out=. carla.proto
+protoc -I. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` carla.proto
+```
+
+---
+
+## 🧩 Integration Overview
+
+### Python Side:
+- `shared_data.py`: Shared memory object (dict) using `multiprocessing.Manager()`.
+- `carla_data_collector.py`: Fetches data from Carla simulator and updates `shared_data`.
+- `grpc_server.py`: Hosts gRPC server that reads from `shared_data` and responds to client calls.
+
+### Qt/C++ Side:
+- `qt_grpc_client.cpp`: Uses gRPC C++ client to request sensor data and display on UI.
+
+---
+
+## 💡 Interview Questions
+
+1. **What is gRPC and how is it different from REST?**
+   - gRPC is binary and based on HTTP/2; faster than REST (JSON over HTTP/1.1).
+2. **What are Protocol Buffers and why use them?**
+   - Lightweight, schema-based serialization format; more efficient than JSON/XML.
+3. **How does gRPC support multi-language communication?**
+   - Generates client/server stubs in multiple languages from `.proto` definitions.
+4. **How does the gRPC server interact with real-time data in Carla?**
+   - Server accesses shared memory updated by `carla_data_collector.py`.
+5. **What is the role of `shared_data` in your design?**
+   - Acts as an IPC buffer using `multiprocessing.Manager().dict()` for concurrent data access.
+6. **How do you generate gRPC bindings in both Python and C++?**
+   - Python: `grpc_tools.protoc`; C++: `protoc` with `--cpp_out` and `--grpc_out`.
+7. **How is performance maintained in your gRPC server?**
+   - Lightweight request/response cycle with direct memory access from `shared_data`.
+8. **How is multiprocessing handled when Carla is running continuously?**
+   - `carla_data_collector.py` runs in a separate process, allowing the gRPC server to remain responsive.
+9. **What are some potential failure points in this architecture?**
+   - Carla crash, shared memory inconsistency, gRPC network issues, or client-server version mismatch.
+
+---
+
+## 🧯 gRPC CMake Build Error – Resolution Notes
+
+### ❌ Problem:
+When building the Qt C++ application using gRPC generated files (`carla.pb.cc`, `carla.grpc.pb.cc`), the following error occurred:
+```
+CMake Error at CMakeLists.txt:16 (find_package):
+  By not providing "FindgRPC.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "gRPC", but
+  CMake did not find one.
+```
+
+### 🧪 Cause:
+- CMake was unable to locate the `gRPCConfig.cmake` or `grpc-config.cmake` file required to link the gRPC C++ library.
+- The `find_package(gRPC REQUIRED)` failed because gRPC was not installed with a CMake package config.
+
+### ✅ Fix:
+1. **Comment out** the following lines in `CMakeLists.txt`:
+```cmake
+# find_package(Protobuf REQUIRED)
+# find_package(gRPC REQUIRED)
+```
+
+2. **Manually link libraries instead**:
+```cmake
+target_link_libraries(appADAS_inustrial_app
+    PRIVATE
+        Qt6::Quick
+        gRPC::grpc++
+        ${Protobuf_LIBRARIES}
+)
+```
+
+3. Alternatively, use system installed paths or pass a custom `-DgRPC_DIR` if you have installed gRPC from source.
+```bash
+cmake .. -DgRPC_DIR=/path/to/grpc/cmake
+```
+
+4. In our case, we skipped `find_package()` and directly used the generated `.pb.h`/`.pb.cc` files to proceed with build.
+
+---
+
+## 🧪 Qt gRPC Client (C++ Implementation)
+```cpp
+// qt_grpc_client.h
+#pragma once
+
+#include <QObject>
+#include <QString>
+#include <memory>
+#include "carla.grpc.pb.h"
+#include <grpcpp/channel.h>
+#include <grpcpp/create_channel.h>
+
+class QtGrpcClient : public QObject {
+    Q_OBJECT
+
+public:
+    explicit QtGrpcClient(QObject* parent = nullptr);
+    Q_INVOKABLE void fetchSensorData();
+
+signals:
+    void sensorDataReceived(const QString& speed,
+                             const QString& acceleration,
+                             const QString& steering,
+                             const QString& brake,
+                             const QString& throttle,
+                             const QString& laneOffset,
+                             const QString& trafficSign,
+                             const QString& status);
+
+private:
+    std::unique_ptr<carla::CarlaDataService::Stub> stub_;
+};
+```
+
+```cpp
+// qt_grpc_client.cpp
+#include "qt_grpc_client.h"
+#include <QDebug>
+
+QtGrpcClient::QtGrpcClient(QObject* parent)
+    : QObject(parent)
+{
+    auto channel = grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
+    stub_ = carla::CarlaDataService::NewStub(channel);
+}
+
+void QtGrpcClient::fetchSensorData()
+{
+    carla::SensorRequest request;
+    request.set_request_id("qt-client");
+
+    carla::SensorResponse response;
+    grpc::ClientContext context;
+
+    grpc::Status status = stub_->GetSensorData(&context, request, &response);
+
+    if (status.ok()) {
+        emit sensorDataReceived(
+            QString::number(response.speed(), 'f', 2),
+            QString::number(response.acceleration(), 'f', 2),
+            QString::number(response.steering(), 'f', 2),
+            QString::number(response.brake(), 'f', 2),
+            QString::number(response.throttle(), 'f', 2),
+            QString::number(response.lane_offset(), 'f', 2),
+            QString::fromStdString(response.traffic_sign()),
+            QString::fromStdString(response.status())
+        );
+    } else {
+        qWarning() << "[gRPC] Request failed:" << QString::fromStdString(status.error_message());
+    }
+}
+```
+
+> 🔒 **SOLID & Industrial Compliance**:
+- **S**: Single responsibility → Class handles only communication.
+- **O**: Open for extension → Supports more RPCs easily.
+- **L**: Substitution not applicable.
+- **I**: Interface segregation followed using Qt signals.
+- **D**: Uses dependency injection for gRPC channel.
+
+Let me know when you're ready to integrate with QML or create the Presenter logic!
+
+
+

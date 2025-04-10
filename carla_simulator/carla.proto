@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package carla;
+
+service CarlaDataService {
+  rpc GetSensorData (EmptyRequest) returns (SensorData);
+}
+
+message EmptyRequest {}
+
+message SensorData {
+  float speed = 1;
+  float acceleration = 2;
+  float steering = 3;
+  float brake = 4;
+  float throttle = 5;
+  float lane_offset = 6;
+  string traffic_sign = 7;
+  string status = 8;
+}
